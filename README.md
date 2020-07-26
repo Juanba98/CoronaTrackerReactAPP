@@ -2,7 +2,7 @@
  
     Un wireframe para un sitio web, también conocido como un esquema de página o plano de pantalla, es una guía visual que representa el esqueleto o estructura visual de un sitio web.
 
-- [ ] 2º Create React App
+- [x] 2º Create React App
 
 - [ ] 3º Cleanup the Project
 
