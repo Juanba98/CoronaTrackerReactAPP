@@ -1,4 +1,4 @@
-- [x] 1º Create WireFrame
+- [X] 1º Create WireFrame
  
     Un wireframe para un sitio web, también conocido como un esquema de página o plano de pantalla, es una guía visual que representa el esqueleto o estructura visual de un sitio web.
 
