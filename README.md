@@ -6,11 +6,11 @@
 
 - [X] 3º Cleanup the Project
 
-- [ ] 4º Structure of Covid Tracker
+- [X] 4º Structure of Covid Tracker
 
-- [ ] 5º Create Header
+- [X] 5º Create Header
 
-- [ ] 6º Create Info Boxes 
+- [X] 6º Create Info Boxes 
 
 - [ ] 7º Create Table 
 
