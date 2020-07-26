@@ -4,7 +4,7 @@
 
 - [x] 2º Create React App
 
-- [ ] 3º Cleanup the Project
+- [X] 3º Cleanup the Project
 
 - [ ] 4º Structure of Covid Tracker
 
