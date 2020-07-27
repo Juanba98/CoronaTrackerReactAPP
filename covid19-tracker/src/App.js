@@ -3,6 +3,7 @@ import {FormControl,Select,MenuItem,Card,CardContent} from '@material-ui/core';
 import './App.css';
 import InfoBox from './InfoBox';
 import Map from './Map';
+import Table from './Table'
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
 //"https://disease.sh/v3/covid-19/all"
@@ -11,8 +12,8 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setcountryInfo] = useState({});
-  //USEEFFECT =  Runs a pierce of code
-  // based on a given condition
+  const [tableData, setTableData] = useState([]);
+  //Just run at the first load of the component
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
     .then(response => response.json())
@@ -23,6 +24,8 @@ function App() {
 
   
   useEffect(() => {
+    //USEEFFECT =  Runs a pierce of code
+    // based on a given condition
     //The code inside here will run once
     //When the component loads and not again
     //async -> send a request, wait for it, do something with it
@@ -38,7 +41,8 @@ function App() {
           }
         ));
 
-        setCountries(countries)
+        setTableData(data);
+        setCountries(countries);
       }); 
     
     };
@@ -108,6 +112,7 @@ function App() {
      <Card className= "app_right">
             <CardContent>
               <h3>Live Cases by Country</h3>
+              <Table countries = {tableData}></Table>
               <h3>Worldwide new Cases</h3>
             </CardContent>
       </Card> 
