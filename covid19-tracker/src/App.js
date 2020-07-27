@@ -3,7 +3,9 @@ import {FormControl,Select,MenuItem,Card,CardContent} from '@material-ui/core';
 import './App.css';
 import InfoBox from './InfoBox';
 import Map from './Map';
-import Table from './Table'
+import Table from './Table';
+import {sortData} from './util';
+import LineGraph from './LineGraph'
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
 //"https://disease.sh/v3/covid-19/all"
@@ -41,7 +43,8 @@ function App() {
           }
         ));
 
-        setTableData(data);
+        const sortedData = sortData(data);
+        setTableData(sortedData);
         setCountries(countries);
       }); 
     
@@ -114,6 +117,8 @@ function App() {
               <h3>Live Cases by Country</h3>
               <Table countries = {tableData}></Table>
               <h3>Worldwide new Cases</h3>
+              <LineGraph></LineGraph>
+
             </CardContent>
       </Card> 
     </div>
