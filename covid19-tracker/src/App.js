@@ -5,7 +5,8 @@ import InfoBox from './InfoBox';
 import Map from './Map';
 import Table from './Table';
 import {sortData} from './util';
-import LineGraph from './LineGraph'
+import LineGraph from './LineGraph';
+import "leaflet/dist/leaflet.css";
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
 //"https://disease.sh/v3/covid-19/all"
@@ -15,10 +16,16 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setcountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const[mapCenter,setMapCenter]=
+  useState({ lat: 34.80746, lng: -40.4796});
+  const [mapZoom, setmapZoom] = useState(2);
+
+  const [mapCountries, setMapCountries] = useState([]);
+  
   //Just run at the first load of the component
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
-    .then(response => response.json())
+    .then(response => response.json(3))
     .then(data =>{
       setcountryInfo(data);
     })
@@ -45,6 +52,7 @@ function App() {
 
         const sortedData = sortData(data);
         setTableData(sortedData);
+        setMapCountries(data);
         setCountries(countries);
       }); 
     
@@ -63,8 +71,12 @@ function App() {
     await fetch(url)
     .then(response => response.json())
     .then(data=> {
+      console.log(data)
       setCountry(countryCode);
       setcountryInfo(data);
+
+      setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
+      setmapZoom(4);
     })
     
   }
@@ -107,7 +119,10 @@ function App() {
 
       </div>
       
-      <Map></Map>
+      <Map
+      countries = {mapCountries}
+      center={mapCenter}
+      zoom = {mapZoom}/>
       
  
        
