@@ -10,7 +10,7 @@ function InfoBox({tittle, cases, total,active,isGreen,isRed,isBlack, ...props}) 
             className = {`infoBox ${active && 'infoBox--selected'} ${isRed && "infoBox--red"} ${isBlack && "infoBox--black"}`}>
            <CardContent>
                
-                <Typography className="infobox_title" color="textSecondary">{tittle}</Typography> 
+    <Typography className="infobox_title" color="textSecondary">{tittle}</Typography> 
 
                 <h2 className = {`infoBox_cases ${isRed && "infoBox__cases--red"} ${isBlack && "infoBox__cases--black"} ${isGreen && "infoBox__cases--green"} `}>{cases}</h2>
 
