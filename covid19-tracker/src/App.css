@@ -18,6 +18,34 @@ body{
   margin-bottom:20px ;
   justify-content: space-between;
 }
+
+.app_header > h1{
+  color: #e12d2d;
+  font-size: 2rem;
+}
+
+.app_right{
+  display:flex;
+  flex-direction: column;
+}
+.app_right .MuiCardContent-root{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.app__graphTitle{
+  margin-top: 20px;
+}
+.app__graph{
+  flex-grow: 1;
+}
+
+.app_header{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: space-between;
+}
 .app_left{
   flex: 0.9;
 }

@@ -12,13 +12,13 @@
 
 - [X] 6º Create Info Boxes 
 
-- [ ] 7º Create Table 
+- [X] 7º Create Table 
 
-- [ ] 8º Create a Chart
+- [X] 8º Create a Chart
 
-- [ ] 9º Create Map
+- [X] 9º Create Map
 
-- [ ] 10º Styling
+- [X] 10º Styling
 
 - [ ] 11º Deploy
 

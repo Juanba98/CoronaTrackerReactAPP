@@ -2,15 +2,17 @@
 //To create the basic schema of the app  => rfce 
 import React from 'react';
 import {Card,CardContent, Typography} from '@material-ui/core'
-
-function InfoBox({tittle, cases, total}) {
+import "./InfoBox.css";
+function InfoBox({tittle, cases, total,active,isGreen,isRed,isBlack, ...props}) {
     return (
-        <Card className = "infoBox">
+        <Card
+            onClick = {props.onClick}
+            className = {`infoBox ${active && 'infoBox--selected'} ${isRed && "infoBox--red"} ${isBlack && "infoBox--black"}`}>
            <CardContent>
                
                 <Typography className="infobox_title" color="textSecondary">{tittle}</Typography> 
 
-                <h2 className = "infoBox_cases">{cases}</h2>
+                <h2 className = {`infoBox_cases ${isRed && "infoBox__cases--red"} ${isBlack && "infoBox__cases--black"} ${isGreen && "infoBox__cases--green"} `}>{cases}</h2>
 
                 <Typography className = "infoBox_total" color="textSecondary"> {total} Total </Typography>
            </CardContent>

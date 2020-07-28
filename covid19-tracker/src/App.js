@@ -4,7 +4,7 @@ import './App.css';
 import InfoBox from './InfoBox';
 import Map from './Map';
 import Table from './Table';
-import {sortData} from './util';
+import {sortData, prettyPrintStat} from './util';
 import LineGraph from './LineGraph';
 import "leaflet/dist/leaflet.css";
 //BEM naming convention
@@ -21,7 +21,7 @@ function App() {
   const [mapZoom, setmapZoom] = useState(2);
 
   const [mapCountries, setMapCountries] = useState([]);
-  
+  const [casesType, setCasesType] = useState("cases");
   //Just run at the first load of the component
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -112,14 +112,27 @@ function App() {
       </div>
       <div className = "app_stats">
          
-          <InfoBox tittle = "Coronavirus Cases" total = {countryInfo.cases} cases={countryInfo.todayCases} ></InfoBox>
-          <InfoBox tittle = "Recovered" total = {countryInfo.recovered} cases={countryInfo.todayRecovered}></InfoBox>
-          <InfoBox tittle = "Deaths" total = {countryInfo.deaths} cases={countryInfo.todayDeaths}></InfoBox>
+          <InfoBox
+            isRed
+            active = {casesType === "cases"}
+            onClick={e=>setCasesType('cases')}
+            tittle = "Coronavirus Cases" total = {countryInfo.cases} cases={prettyPrintStat(countryInfo.todayCases)} ></InfoBox>
+          <InfoBox
+            isGreen
+            active = {casesType === "recovered"}
+            onClick={e=>setCasesType('recovered')}
+            tittle = "Recovered" total = {countryInfo.recovered} cases={prettyPrintStat(countryInfo.todayRecovered)}></InfoBox>
+          <InfoBox
+            isBlack
+            active = {casesType === "deaths"}
+            onClick={e=>setCasesType('deaths')}
+            tittle = "Deaths" total = {countryInfo.deaths} cases={prettyPrintStat(countryInfo.todayDeaths)}></InfoBox>
 
 
       </div>
       
       <Map
+      casesType ={casesType}
       countries = {mapCountries}
       center={mapCenter}
       zoom = {mapZoom}/>
@@ -131,8 +144,8 @@ function App() {
             <CardContent>
               <h3>Live Cases by Country</h3>
               <Table countries = {tableData}></Table>
-              <h3>Worldwide new Cases</h3>
-              <LineGraph></LineGraph>
+              <h3 className = "app__graphTittle">Worldwide new {casesType}</h3>
+              <LineGraph className = "app__graph" casesType={casesType}></LineGraph>
 
             </CardContent>
       </Card> 
