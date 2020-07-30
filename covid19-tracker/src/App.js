@@ -27,9 +27,9 @@ function App() {
     fetch("https://api.covid19api.com/summary")
     .then(response => response.json(3))
     .then(data =>{
-      console.log(data);
+      //console.log(data);
       const {Global} = data;
-      console.log(Global);
+      //onsole.log(Global);
       setcountryInfo(Global);
     })
   }, [])
@@ -43,14 +43,34 @@ function App() {
     //async -> send a request, wait for it, do something with it
 
     const getCountriesData = async () => {
-     
+     const url = 'https://api.covid19api.com/summary'; 
+      fetch(url)
+        .then (response => response.json())
+        .then((data)=>{
+          console.log(data);
+          const {Countries} = data;
+          //Name and value 
+          const countries = Countries.map((country) =>(
+            {
+              name: country.Country,
+              value: country.CountryCode, 
+            }
+        ))
+          
+          const sortedData = sortData(Countries);
+          setTableData(sortedData);
+          //setMapCountries 
+          setCountries(countries);
+          
+
+        })
     
     };
 
     getCountriesData();
   }, [])
 
-
+  //When we change global
   const onCountryChange = async (event) =>{
   
     
@@ -118,12 +138,12 @@ function App() {
       </div> 
      <Card className= "app_right">
             <CardContent>
-              <h3>Live Cases by Country</h3>
+              <h3>Top Ten Countries</h3>
               
-              {/*<Table countries = {tableData}></Table>
+              <Table countries = {tableData}></Table>
               <h3 className = "app__graphTittle">Worldwide new {casesType}</h3>
               <LineGraph className = "app__graph" casesType={casesType}></LineGraph>
-          */}
+          
             </CardContent>
       </Card> 
     </div>
