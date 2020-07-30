@@ -45,10 +45,12 @@ function App() {
       .then((data) => {
         const {Countries} = data;
       
-        console.log(Countries);
+        console.log(">>>!",Countries);
 
         const sortedData = sortData(Countries);
         setTableData(sortedData);
+        console.log("TableData",tableData);
+        console.log("SortedData",sortedData);
         //setMapCountries(data);
         setCountries(Countries);
       }); 
@@ -62,24 +64,25 @@ function App() {
   const onCountryChange = async (event) =>{
     const countryCode = event.target.value;
     console.log(event.target.value);
-    const url = 'https://api.covid19api.com/summary'
+    const url = 'https://api.covid19api.com/summary';
       
     await fetch(url)
     .then(response => response.json())
     .then(data=> {
-      console.log(data)
+      const  {Countries} = data;
+      console.log(">>>>",data)
       setCountry(countryCode);
       console.log(countryCode)
-      setcountryInfo(data);
+      setcountryInfo(Countries);
 
-      setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
-      setmapZoom(4);
+      //setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
+      //setmapZoom(4);
     })
     
   }
   const changeCountryOnClick = async(country) => {
     const countryCode = country;
-    const url = 
+    const url =
       countryCode === 'worldwide' 
         ?  "https://disease.sh/v3/covid-19/all" 
         : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
@@ -153,10 +156,11 @@ function App() {
      <Card className= "app_right">
             <CardContent>
               <h3>Live Cases by Country</h3>
-              <Table countries = {tableData}></Table>
+              
+              {/*<Table countries = {tableData}></Table>
               <h3 className = "app__graphTittle">Worldwide new {casesType}</h3>
               <LineGraph className = "app__graph" casesType={casesType}></LineGraph>
-
+          */}
             </CardContent>
       </Card> 
     </div>

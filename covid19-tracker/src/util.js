@@ -30,7 +30,7 @@ export const sortData = (data)=>{
             return 1;
         }
     })
-    
+    console.log(sortedData);
     return sortedData;
 }
 

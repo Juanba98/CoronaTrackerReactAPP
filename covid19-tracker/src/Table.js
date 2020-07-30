@@ -1,12 +1,12 @@
 import React from 'react';
 import './Table.css';
 import numeral from "numeral"
-function Table({countries}) {
+function Table({countriesData}) {
     return <div className = "table">
-    {countries.map(({country,cases}) =>(
+    {countriesData.map(({Country,TotalConfirmed}) =>(
         <tr>
-            <td>{country}</td>
-            <td><strong>{numeral(cases).format("0,0")}</strong></td>
+            <td>{Country}</td>
+            <td><strong>{numeral(10).format("0,0")}</strong></td>
         </tr>
 
     ))}
