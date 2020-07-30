@@ -13,7 +13,7 @@ import "leaflet/dist/leaflet.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("worldwide");
+  const [country, setCountry] = useState("global");
   const [countryInfo, setcountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
   const[mapCenter,setMapCenter]=
@@ -40,20 +40,17 @@ function App() {
     //async -> send a request, wait for it, do something with it
 
     const getCountriesData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      await fetch("https://api.covid19api.com/summary")
       .then((response)=> response.json())
-      .then((data)=> {
-        const countries = data.map((country) => (
-          {
-            name: country.country,//United States
-            value :  country.countryInfo.iso2,// UK, USA, FR
-          }
-        ));
+      .then((data) => {
+        const {Countries} = data;
+      
+        console.log(Countries);
 
-        const sortedData = sortData(data);
+        const sortedData = sortData(Countries);
         setTableData(sortedData);
-        setMapCountries(data);
-        setCountries(countries);
+        //setMapCountries(data);
+        setCountries(Countries);
       }); 
     
     };
@@ -64,6 +61,24 @@ function App() {
 
   const onCountryChange = async (event) =>{
     const countryCode = event.target.value;
+    console.log(event.target.value);
+    const url = 'https://api.covid19api.com/summary'
+      
+    await fetch(url)
+    .then(response => response.json())
+    .then(data=> {
+      console.log(data)
+      setCountry(countryCode);
+      console.log(countryCode)
+      setcountryInfo(data);
+
+      setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
+      setmapZoom(4);
+    })
+    
+  }
+  const changeCountryOnClick = async(country) => {
+    const countryCode = country;
     const url = 
       countryCode === 'worldwide' 
         ?  "https://disease.sh/v3/covid-19/all" 
@@ -73,16 +88,10 @@ function App() {
     .then(data=> {
       console.log(data)
       setCountry(countryCode);
+      console.log(countryCode);
       setcountryInfo(data);
-
-      setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
-      setmapZoom(4);
     })
-    
-  }
-  
- 
-
+  };
   return (
     <div className="app">
     
@@ -91,7 +100,7 @@ function App() {
         <h1>COVID-19 TRACKER</h1>
         <FormControl className = "app_dropdown">
           <Select variant = "outlined"  onChange = {onCountryChange} value={country}>
-            <MenuItem  value="worldwide">Worldwide</MenuItem>
+            <MenuItem  value="global">Global</MenuItem>
 
             {/* Loop throgh all the countries
             and show a drop downa
@@ -100,7 +109,7 @@ function App() {
             {
               countries.map((country)=>(
                   
-              <MenuItem value={country.value}> {country.name}</MenuItem>
+              <MenuItem value={country.CountryCode}> {country.Country}</MenuItem>
                   
                 ))
             }
@@ -132,6 +141,7 @@ function App() {
       </div>
       
       <Map
+      setCountry = {changeCountryOnClick}
       casesType ={casesType}
       countries = {mapCountries}
       center={mapCenter}

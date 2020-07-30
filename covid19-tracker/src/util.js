@@ -19,22 +19,23 @@ const casesTypeColors={
 }
 
 export const sortData = (data)=>{
-    const soertedData = [...data];
-
-    soertedData.sort((a,b) => {
-        if(a.cases > b.cases){
+    
+    const sortedData = [...data];
+    
+    sortedData.sort((a,b) => {
+        if(a.TotalConfirmed > b.TotalConfirmed){
             return -1;
 
         }else{
             return 1;
         }
     })
-
-    return soertedData;
+    
+    return sortedData;
 }
 
 //Draw cicles on the map with interactive tooltop
-export const showDataOnMap = (data, casesType='cases') =>(
+export const showDataOnMap = (data, casesType='cases',setCountry) =>(
     data.map(country =>(
         <Circle
             center = {[country.countryInfo.lat, country.countryInfo.long]}
@@ -46,7 +47,9 @@ export const showDataOnMap = (data, casesType='cases') =>(
             }
            
         >
-         <Popup>
+         <Popup
+         onOpen = {()=>{setCountry(country.countryInfo.iso2)}}  >
+            
             <div className="info-container">
                 <div 
                     className="info-flag"

@@ -2,7 +2,7 @@ import React from 'react';
 import './Map.css'
 import {Map as LeafletMap, TileLayer} from "react-leaflet";
 import { showDataOnMap } from './util';
-function Map({countries,center, casesType,zoom}) {
+function Map({countries,center, casesType,zoom,setCountry}) {
     return (
         <div className = "map">
             <LeafletMap center={center} zoom={zoom}>
@@ -11,7 +11,7 @@ function Map({countries,center, casesType,zoom}) {
                     atribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'></TileLayer>
 
                     {/* Lopp throug countries and drow circles oin the screeen*/}
-                    {showDataOnMap(countries,casesType)}
+                    {showDataOnMap(countries,casesType,setCountry)}
             </LeafletMap>
         </div>
     
