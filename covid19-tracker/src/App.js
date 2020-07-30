@@ -4,7 +4,7 @@ import './App.css';
 import InfoBox from './InfoBox';
 import Map from './Map';
 import Table from './Table';
-import {sortData, prettyPrintStat} from './util';
+import {sortData, prettyPrintStat,prettyPrintStatTotal} from './util';
 import LineGraph from './LineGraph';
 import "leaflet/dist/leaflet.css";
 //BEM naming convention
@@ -24,10 +24,13 @@ function App() {
   const [casesType, setCasesType] = useState("cases");
   //Just run at the first load of the component
   useEffect(() => {
-    fetch("https://disease.sh/v3/covid-19/all")
+    fetch("https://api.covid19api.com/summary")
     .then(response => response.json(3))
     .then(data =>{
-      setcountryInfo(data);
+      console.log(data);
+      const {Global} = data;
+      console.log(Global);
+      setcountryInfo(Global);
     })
   }, [])
 
@@ -40,20 +43,7 @@ function App() {
     //async -> send a request, wait for it, do something with it
 
     const getCountriesData = async () => {
-      await fetch("https://api.covid19api.com/summary")
-      .then((response)=> response.json())
-      .then((data) => {
-        const {Countries} = data;
-      
-        console.log(">>>!",Countries);
-
-        const sortedData = sortData(Countries);
-        setTableData(sortedData);
-        console.log("TableData",tableData);
-        console.log("SortedData",sortedData);
-        //setMapCountries(data);
-        setCountries(Countries);
-      }); 
+     
     
     };
 
@@ -62,38 +52,11 @@ function App() {
 
 
   const onCountryChange = async (event) =>{
-    const countryCode = event.target.value;
-    console.log(event.target.value);
-    const url = 'https://api.covid19api.com/summary';
-      
-    await fetch(url)
-    .then(response => response.json())
-    .then(data=> {
-      const  {Countries} = data;
-      console.log(">>>>",data)
-      setCountry(countryCode);
-      console.log(countryCode)
-      setcountryInfo(Countries);
-
-      //setMapCenter([data.countryInfo.lat,data.countryInfo.long]);
-      //setmapZoom(4);
-    })
+  
     
   }
   const changeCountryOnClick = async(country) => {
-    const countryCode = country;
-    const url =
-      countryCode === 'worldwide' 
-        ?  "https://disease.sh/v3/covid-19/all" 
-        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
-    await fetch(url)
-    .then(response => response.json())
-    .then(data=> {
-      console.log(data)
-      setCountry(countryCode);
-      console.log(countryCode);
-      setcountryInfo(data);
-    })
+    
   };
   return (
     <div className="app">
@@ -128,17 +91,17 @@ function App() {
             isRed
             active = {casesType === "cases"}
             onClick={e=>setCasesType('cases')}
-            tittle = "Coronavirus Cases" total = {countryInfo.cases} cases={prettyPrintStat(countryInfo.todayCases)} ></InfoBox>
+            tittle = "Coronavirus Cases" total = {prettyPrintStatTotal(countryInfo.TotalConfirmed)} cases={prettyPrintStat(countryInfo.NewConfirmed)} ></InfoBox>
           <InfoBox
             isGreen
             active = {casesType === "recovered"}
             onClick={e=>setCasesType('recovered')}
-            tittle = "Recovered" total = {countryInfo.recovered} cases={prettyPrintStat(countryInfo.todayRecovered)}></InfoBox>
+            tittle = "Recovered" total = {prettyPrintStatTotal(countryInfo.TotalRecovered)} cases={prettyPrintStat(countryInfo.NewRecovered)}></InfoBox>
           <InfoBox
             isBlack
             active = {casesType === "deaths"}
             onClick={e=>setCasesType('deaths')}
-            tittle = "Deaths" total = {countryInfo.deaths} cases={prettyPrintStat(countryInfo.todayDeaths)}></InfoBox>
+            tittle = "Deaths" total = {prettyPrintStatTotal(countryInfo.TotalDeaths)} cases={prettyPrintStat(countryInfo.NewDeaths)}></InfoBox>
 
 
       </div>
