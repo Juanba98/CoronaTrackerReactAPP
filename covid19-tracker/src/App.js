@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {FormControl,Select,MenuItem,Card,CardContent} from '@material-ui/core';
+import {FormControl,Select,MenuItem,Card,CardContent,TextField,Typography } from '@material-ui/core';
 import './App.css';
 import InfoBox from './InfoBox';
 import Map from './Map';
@@ -7,6 +7,8 @@ import Table from './Table';
 import {sortData, prettyPrintStat,prettyPrintStatTotal} from './util';
 import LineGraph from './LineGraph';
 import "leaflet/dist/leaflet.css";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
 //"https://disease.sh/v3/covid-19/all"
@@ -47,7 +49,7 @@ function App() {
       fetch(url)
         .then (response => response.json())
         .then((data)=>{
-          console.log(data);
+         // console.log(data);
           const {Countries} = data;
           //Name and value 
           const countries = Countries.map((country) =>(
@@ -60,6 +62,8 @@ function App() {
           const sortedData = sortData(Countries);
           setTableData(sortedData);
           //setMapCountries 
+
+          console.log(">>>",countries);
           setCountries(countries);
           
 
@@ -72,37 +76,49 @@ function App() {
 
   //When we change global
   const onCountryChange = async (event) =>{
-  
+    const countryCode = event.target.value;
     
   }
+
   const changeCountryOnClick = async(country) => {
     
   };
   return (
+     
     <div className="app">
     
      <div className = "app_left">
        <div className = "app_header">
         <h1>COVID-19 TRACKER</h1>
         <FormControl className = "app_dropdown">
-          <Select variant = "outlined"  onChange = {onCountryChange} value={country}>
+          {/*<Select variant = "outlined"  onChange = {onCountryChange} value={country}>
             <MenuItem  value="global">Global</MenuItem>
 
-            {/* Loop throgh all the countries
+             Loop throgh all the countries
             and show a drop downa
-            list of the options*/}
-
+            list of the options
             {
               countries.map((country)=>(
                   
-              <MenuItem value={country.CountryCode}> {country.Country}</MenuItem>
+              <MenuItem value={country.value}> {country.name}</MenuItem>
                   
                 ))
             }
                 
           </Select>
+*/}     <Autocomplete
+          options={countries}
+          getOptionLabel={(option) => option.name}
+          classes = {{
+            country: "classes.option",
+          }}
+          renderOption={(country) =>(
 
-
+            <React.Fragment>
+              <Typography>{country.name}</Typography> </React.Fragment>
+          )}
+          renderInput={(params) => <TextField {...params} label="Select Country" variant="outlined" />}
+/>
         </FormControl>
       </div>
       <div className = "app_stats">
@@ -138,7 +154,7 @@ function App() {
       </div> 
      <Card className= "app_right">
             <CardContent>
-              <h3>Top Ten Countries</h3>
+              <h3>Top 10 Countries by Cases</h3>
               
               <Table countries = {tableData}></Table>
               <h3 className = "app__graphTittle">Worldwide new {casesType}</h3>
