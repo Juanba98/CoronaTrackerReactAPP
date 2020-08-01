@@ -13,7 +13,10 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 //"https://disease.sh/v3/covid-19/countries/"
 //"https://disease.sh/v3/covid-19/all"
 
+
+
 function App() {
+  
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("global");
   const [countryInfo, setcountryInfo] = useState({});
@@ -61,9 +64,9 @@ function App() {
           
           const sortedData = sortData(Countries);
           setTableData(sortedData);
-          //setMapCountries 
+          
 
-          console.log(">>>",countries);
+          
           setCountries(countries);
           
 
@@ -77,12 +80,37 @@ function App() {
   //When we change global
   const onCountryChange = async (event) =>{
     const countryCode = event.target.value;
+    const url = 'https://api.covid19api.com/summary';
+    await fetch(url)
+      .then(response => response.json())
+      .then(({Countries,Global}) => {
+        setCountry(countryCode);
+        if(countryCode === 'global'){
+          
+           setcountryInfo(Global);
+           console.log(Global)
+
+        }else{
+          const countryInfoTemp = Countries.filter((country)=>(
+            country.CountryCode === countryCode
+           
+      ))
+      setcountryInfo(countryInfoTemp[0]);
+      console.log(countryInfoTemp[0]);
+        }
+        
+        
+
+      })
     
   }
 
+  
   const changeCountryOnClick = async(country) => {
     
   };
+
+  
   return (
      
     <div className="app">
@@ -90,13 +118,14 @@ function App() {
      <div className = "app_left">
        <div className = "app_header">
         <h1>COVID-19 TRACKER</h1>
-        <FormControl className = "app_dropdown">
-          {/*<Select variant = "outlined"  onChange = {onCountryChange} value={country}>
+         <FormControl className = "app_dropdown">
+          <Select variant = "outlined"  onChange = {onCountryChange} value={country}>
             <MenuItem  value="global">Global</MenuItem>
 
-             Loop throgh all the countries
+            {/* Loop throgh all the countries
             and show a drop downa
-            list of the options
+            list of the options*/}
+
             {
               countries.map((country)=>(
                   
@@ -106,19 +135,8 @@ function App() {
             }
                 
           </Select>
-*/}     <Autocomplete
-          options={countries}
-          getOptionLabel={(option) => option.name}
-          classes = {{
-            country: "classes.option",
-          }}
-          renderOption={(country) =>(
 
-            <React.Fragment>
-              <Typography>{country.name}</Typography> </React.Fragment>
-          )}
-          renderInput={(params) => <TextField {...params} label="Select Country" variant="outlined" />}
-/>
+
         </FormControl>
       </div>
       <div className = "app_stats">
