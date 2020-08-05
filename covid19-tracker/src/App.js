@@ -77,7 +77,7 @@ function App() {
     getCountriesData();
   }, [])
 
-  //When we change global
+  //When we change global xdd
   const onCountryChange = async (event) =>{
     const countryCode = event.target.value;
     const url = 'https://api.covid19api.com/summary';
