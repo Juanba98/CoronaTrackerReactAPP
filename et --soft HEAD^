@@ -1,0 +1,181 @@
+[33mcommit d37b53c96c82bf31eb70c895aaa4c6c760e64561[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Merge: 8ade6f5 3fdd6ae
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Wed Aug 5 15:12:32 2020 +0200
+
+    Merge branch 'master' of https://github.com/Juanba98/CoronaTrackerReactAPP
+
+[33mcommit 8ade6f57ce27186a0cbf3fe69e5eecb6075e4794[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Wed Aug 5 15:12:25 2020 +0200
+
+    a
+
+[33mcommit 3fdd6ae21f4b9b8d9d11cd38647fcb429aac1bc1[m
+Merge: 684e149 5a86693
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Wed Aug 5 14:23:21 2020 +0200
+
+    Merge pull request #2 from Juanba98/update
+    
+    Update
+
+[33mcommit 5a8669355048ae080171c21b75fca83eb7162ee5[m[33m ([m[1;31morigin/update[m[33m, [m[1;32mupdate[m[33m)[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Wed Aug 5 14:22:43 2020 +0200
+
+    fix
+
+[33mcommit 684e149a695845696119f5134725ab00d65d0faa[m
+Merge: 69ca1c8 5cab463
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Wed Aug 5 14:16:44 2020 +0200
+
+    Merge pull request #1 from Juanba98/update
+    
+    Update
+
+[33mcommit f7ad323f5a96b3b7069ebe2e7ac71a06791a4530[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sat Aug 1 16:21:02 2020 +0200
+
+    inboxes with the new api
+
+[33mcommit 5cab4635d6375215c4c6b7486c981cea87cef502[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Thu Jul 30 17:57:30 2020 +0200
+
+    autocomplete v1
+
+[33mcommit 8c44c3721666a0f10cdaf32ebdb5a8df6f754d1c[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Thu Jul 30 16:25:02 2020 +0200
+
+    made top Ten table
+
+[33mcommit b01de6685f3890ae109179ff3403ad8416199554[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Thu Jul 30 15:58:55 2020 +0200
+
+    Info Cards
+
+[33mcommit 666818615e87326a08d37dc0567ef988f23a8c62[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Thu Jul 30 14:31:34 2020 +0200
+
+    logo and name update
+
+[33mcommit 836b4acd373f3c339ea26df16681b45139bd098f[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Thu Jul 30 13:55:27 2020 +0200
+
+    update item menu
+
+[33mcommit 69ca1c811b36eb35e4371219aa0fb7ce5202a5bb[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Tue Jul 28 21:53:35 2020 +0200
+
+    logo and name update
+
+[33mcommit c2a589ea795fa92156157c8b397249e2a7042e89[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Tue Jul 28 19:09:44 2020 +0200
+
+    done
+
+[33mcommit 822d04497f7beec555065bbeb4cc8f232655fc0f[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Tue Jul 28 16:57:01 2020 +0200
+
+    map with circles
+
+[33mcommit 6b0f55c0546c944e7023ef92d98a55d90cbe4f42[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Mon Jul 27 17:12:41 2020 +0200
+
+    done LineGraph
+
+[33mcommit 4273e9405f973098afd51b7852a9a4f426985766[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Mon Jul 27 13:32:21 2020 +0200
+
+    starting the table
+
+[33mcommit 2935d7fb7d7cab343acf21c11330287d43a2bc84[m
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Sun Jul 26 22:39:54 2020 +0200
+
+    Update README.md
+
+[33mcommit edd54165c60bd90a932a19272a8d19106a6f6ec9[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 22:39:05 2020 +0200
+
+    InfoBoxesDone
+
+[33mcommit 7cb36c606620058d8d22fd8aec2bee3131326f4e[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 20:30:37 2020 +0200
+
+    select the country
+
+[33mcommit 8088a4e39d982ed9bcc5cb88b3867d6d90b57462[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 18:31:23 2020 +0200
+
+    materialUi
+
+[33mcommit 6b5efa2b55a13c6da722560ec959d7c318cf063a[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 18:15:55 2020 +0200
+
+    Done with Cleanup
+
+[33mcommit 28359d3ae87c997b875e4047c7b0b2fbb51069df[m
+Merge: 9f92a30 66e12d8
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 17:56:29 2020 +0200
+
+    Merge branch 'master' of https://github.com/Juanba98/CoronaTrackerReactAPP
+
+[33mcommit 9f92a3000ea23530fc25cd97aa82e1eb69df7130[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 17:56:23 2020 +0200
+
+    Created React APP
+
+[33mcommit 66e12d81d7f9e8d593fa317485a391c474ca63d0[m
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Sun Jul 26 17:46:12 2020 +0200
+
+    Update README.md
+
+[33mcommit 1eb8d9fbd224d8c040d438e6baea5254a6fe97fc[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 17:45:16 2020 +0200
+
+    Created WireFrame
+
+[33mcommit d00e81d1ba74aeeaada50eb5fb7110b99849321a[m
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Sun Jul 26 17:09:48 2020 +0200
+
+    Update README.md
+
+[33mcommit d6ad45121bd25dd7df7aa8ebe27e749397a8f0f7[m
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Sun Jul 26 17:09:23 2020 +0200
+
+    Update README.md
+
+[33mcommit ab2ab0cfeefed7a2c3d197cf70757f883d2e1f2b[m
+Author: Juanba98 <47393587+Juanba98@users.noreply.github.com>
+Date:   Sun Jul 26 17:09:00 2020 +0200
+
+    Update README.md
+
+[33mcommit bc44a21a3eaf303143c2000827820edecafb1a5f[m
+Author: Juanba1998 <juanbau1998@gmail.com>
+Date:   Sun Jul 26 17:07:04 2020 +0200
+
+    first commit
