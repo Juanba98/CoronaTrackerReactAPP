@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react';
-import {FormControl,Select,MenuItem,Card,CardContent,TextField,Typography } from '@material-ui/core';
+import {FormControl,MenuItem,Card,CardContent,TextField,Typography } from '@material-ui/core';
+import Select from "react-select";
 import './App.css';
 import InfoBox from './InfoBox';
 import Map from './Map';
@@ -28,6 +29,8 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   //Just run at the first load of the component
+
+
   useEffect(() => {
     fetch("https://api.covid19api.com/summary")
     .then(response => response.json(3))
@@ -36,6 +39,7 @@ function App() {
       const {Global} = data;
       //onsole.log(Global);
       setcountryInfo(Global);
+      
     })
   }, [])
 
@@ -55,13 +59,16 @@ function App() {
          // console.log(data);
           const {Countries} = data;
           //Name and value 
-          const countries = Countries.map((country) =>(
+          const temp = Countries.map((country) =>(
             {
-              name: country.Country,
+              label: country.Country,
               value: country.CountryCode, 
             }
-        ))
-          
+          ))
+          const countries = [
+            {label: 'Global', value: 'global'},
+            ...temp, 
+          ]       
           const sortedData = sortData(Countries);
           setTableData(sortedData);
           
@@ -78,8 +85,9 @@ function App() {
   }, [])
 
   //When we change global xdd
-  const onCountryChange = async (event) =>{
-    const countryCode = event.target.value;
+  const onCountryChange = async (selected_country) =>{
+    console.log(selected_country)
+    const countryCode = selected_country.value;
     const url = 'https://api.covid19api.com/summary';
     await fetch(url)
       .then(response => response.json())
@@ -88,7 +96,7 @@ function App() {
         if(countryCode === 'global'){
           
            setcountryInfo(Global);
-           console.log(Global)
+           //console.log(Global)
 
         }else{
           const countryInfoTemp = Countries.filter((country)=>(
@@ -96,13 +104,13 @@ function App() {
            
       ))
       setcountryInfo(countryInfoTemp[0]);
-      console.log(countryInfoTemp[0]);
+      //console.log(countryInfoTemp[0]);
         }
         
         
-
+     
       })
-    
+     
   }
 
   
@@ -119,12 +127,18 @@ function App() {
        <div className = "app_header">
         <h1>COVID-19 TRACKER</h1>
          <FormControl className = "app_dropdown">
-          <Select variant = "outlined"  onChange = {onCountryChange} value={country}>
-            <MenuItem  value="global">Global</MenuItem>
+            <Select 
+              className = "select"
+              defaultValue = {{label:"Global",value:"global"}}
+              options = {countries}
+              onChange = {onCountryChange} 
+              isSearchable
+              >
+           {/* <MenuItem  value="global">Global</MenuItem>
 
-            {/* Loop throgh all the countries
+             Loop throgh all the countries
             and show a drop downa
-            list of the options*/}
+            list of the options
 
             {
               countries.map((country)=>(
@@ -133,7 +147,7 @@ function App() {
                   
                 ))
             }
-                
+          */}      
           </Select>
 
 
