@@ -185,7 +185,7 @@ function App() {
       countries = {mapCountries}
       center={mapCenter}
       zoom = {mapZoom}
-      countriesInfo = {countriesInfo}/>
+      />
       
  
        
