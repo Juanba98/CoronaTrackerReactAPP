@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {FormControl,MenuItem,Card,CardContent,TextField,Typography } from '@material-ui/core';
+import {FormControl,Card,CardContent} from '@material-ui/core';
 import Select from "react-select";
 import './App.css';
 import InfoBox from './InfoBox';
@@ -8,7 +8,6 @@ import Table from './Table';
 import {sortData, prettyPrintStat,prettyPrintStatTotal} from './util';
 import LineGraph from './LineGraph';
 import "leaflet/dist/leaflet.css";
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
@@ -35,9 +34,8 @@ function App() {
     fetch("https://api.covid19api.com/summary")
     .then(response => response.json(3))
     .then(data =>{
-      //console.log(data);
+
       const {Global} = data;
-      //onsole.log(Global);
       setcountryInfo(Global);
       
     })
@@ -56,56 +54,67 @@ function App() {
       fetch(url)
         .then (response => response.json())
         .then((data)=>{
-         // console.log(data);
           const {Countries} = data;
           //Name and value 
+          
           const temp = Countries.map((country) =>(
             {
               label: country.Country,
               value: country.CountryCode, 
             }
           ))
+          
           const countries = [
             {label: 'Global', value: 'global'},
             ...temp, 
           ]       
-          const sortedData = sortData(Countries);
-          setTableData(sortedData);
-          
 
+          const sortedData = sortData(Countries);
           
+          
+          setTableData(sortedData);
           setCountries(countries);
-          
 
         })
     
     };
 
+    const mapData = async ( ) => {
+      
+      await fetch("https://disease.sh/v3/covid-19/countries")
+      .then((response)=> response.json())
+      .then((data)=> {setMapCountries(data)          
+      });
+      
+    }
     getCountriesData();
+    mapData();
   }, [])
 
-  //When we change global xdd
+  //When we change global 
   const onCountryChange = async (selected_country) =>{
-    console.log(selected_country)
+    
     const countryCode = selected_country.value;
+    
     const url = 'https://api.covid19api.com/summary';
     await fetch(url)
       .then(response => response.json())
       .then(({Countries,Global}) => {
+        
         setCountry(countryCode);
+        
         if(countryCode === 'global'){
-          
-           setcountryInfo(Global);
-           //console.log(Global)
+          setcountryInfo(Global);
 
         }else{
           const countryInfoTemp = Countries.filter((country)=>(
-            country.CountryCode === countryCode
+          country.CountryCode === countryCode
            
       ))
-      setcountryInfo(countryInfoTemp[0]);
-      //console.log(countryInfoTemp[0]);
-        }
+     
+        
+        setcountryInfo(countryInfoTemp[0]);
+      }
         
         
      
@@ -124,52 +133,48 @@ function App() {
     <div className="app">
     
      <div className = "app_left">
+     
        <div className = "app_header">
+     
         <h1>COVID-19 TRACKER</h1>
+     
          <FormControl className = "app_dropdown">
+     
             <Select 
               className = "select"
               defaultValue = {{label:"Global",value:"global"}}
               options = {countries}
               onChange = {onCountryChange} 
               isSearchable
-              >
-           {/* <MenuItem  value="global">Global</MenuItem>
-
-             Loop throgh all the countries
-            and show a drop downa
-            list of the options
-
-            {
-              countries.map((country)=>(
-                  
-              <MenuItem value={country.value}> {country.name}</MenuItem>
-                  
-                ))
-            }
-          */}      
-          </Select>
+            />
+           
 
 
         </FormControl>
       </div>
+
       <div className = "app_stats">
          
           <InfoBox
             isRed
             active = {casesType === "cases"}
             onClick={e=>setCasesType('cases')}
-            tittle = "Coronavirus Cases" total = {prettyPrintStatTotal(countryInfo.TotalConfirmed)} cases={prettyPrintStat(countryInfo.NewConfirmed)} ></InfoBox>
+            tittle = "Coronavirus Cases" total = {prettyPrintStatTotal(countryInfo.TotalConfirmed)} cases={prettyPrintStat(countryInfo.NewConfirmed)} 
+          />
+      
           <InfoBox
             isGreen
             active = {casesType === "recovered"}
             onClick={e=>setCasesType('recovered')}
-            tittle = "Recovered" total = {prettyPrintStatTotal(countryInfo.TotalRecovered)} cases={prettyPrintStat(countryInfo.NewRecovered)}></InfoBox>
+            tittle = "Recovered" total = {prettyPrintStatTotal(countryInfo.TotalRecovered)} cases={prettyPrintStat(countryInfo.NewRecovered)}
+          />
+
           <InfoBox
             isBlack
             active = {casesType === "deaths"}
             onClick={e=>setCasesType('deaths')}
-            tittle = "Deaths" total = {prettyPrintStatTotal(countryInfo.TotalDeaths)} cases={prettyPrintStat(countryInfo.NewDeaths)}></InfoBox>
+            tittle = "Deaths" total = {prettyPrintStatTotal(countryInfo.TotalDeaths)} cases={prettyPrintStat(countryInfo.NewDeaths)}
+          />
 
 
       </div>
@@ -179,7 +184,8 @@ function App() {
       casesType ={casesType}
       countries = {mapCountries}
       center={mapCenter}
-      zoom = {mapZoom}/>
+      zoom = {mapZoom}
+      countriesInfo = {countriesInfo}/>
       
  
        
