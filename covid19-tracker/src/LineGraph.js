@@ -3,7 +3,9 @@ import {Line} from "react-chartjs-2";
 import numeral from "numeral";
 function LineGraph({casesType = "cases",...props}) {
     const[data,setData] = useState({});
-
+    if(casesType === "TotalConfirmed" ) casesType = "cases";
+    else if(casesType === "TotalRecovered") casesType = "recovered";
+    else casesType = "deaths"
     
     const options = {
         legend: {

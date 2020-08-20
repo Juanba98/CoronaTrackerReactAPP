@@ -15,15 +15,20 @@
 }
 
 .info-flag img{
-    width: 100px;
+    height: 80px;
+    width: 100%;
     border-radius: 5px; 
+    object-fit: contain;
+   object-position: center;
+
 }
 
 .info-flag{
-    height:80px;
+    height:100px;
     width: 100%;
     background-size: cover;
     border-radius: 8px;
+    
 }
 .info-name{
     font-size: 20px;

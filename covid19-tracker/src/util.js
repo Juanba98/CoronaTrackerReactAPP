@@ -36,6 +36,7 @@ export const sortData = (data)=>{
 
 //Draw cicles on the map with interactive tooltop
 export const showDataOnMap = (data, casesType='TotalConfirmed',setCountry, mapInfo) =>(
+   
     data.map(country =>{
         const info  = mapInfo.filter((info) =>(
             info.countryCode === country.CountryCode

@@ -8,13 +8,15 @@ import Table from './Table';
 import {sortData, prettyPrintStat,prettyPrintStatTotal} from './util';
 import LineGraph from './LineGraph';
 import "leaflet/dist/leaflet.css";
+import { set } from 'numeral';
 
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
 //"https://disease.sh/v3/covid-19/all"
 
-
-
+//To get the day of the week is 
+// const x = new Date();
+//console.log(x.getDay())
 function App() {
   
   const [countries, setCountries] = useState([]);
@@ -22,7 +24,8 @@ function App() {
   const [countryInfo, setcountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
   const[mapCenter,setMapCenter]=
-  useState({ lat: 34.80746, lng: -40.4796});
+  useState({ lat: 34.80746, lng: -1.236741});
+  
   const [mapZoom, setmapZoom] = useState(2);
   const [mapInfo, setMapInfo] = useState([]);
 
@@ -36,7 +39,6 @@ function App() {
     fetch("https://api.covid19api.com/summary")
     .then(response => response.json(3))
     .then(data =>{
-
       const {Global} = data;
       setcountryInfo(Global);
       
@@ -85,8 +87,9 @@ function App() {
       
       await fetch("https://disease.sh/v3/covid-19/countries")
       .then((response)=> response.json())
-      .then((data)=> {        
+      .then((data)=> {    
         const mapInfoTemp =  data.map((country) => (
+          
           {
             countryCode: country.countryInfo.iso2,
             lat: country.countryInfo.lat,
@@ -96,12 +99,14 @@ function App() {
           }))
           
           setMapInfo(mapInfoTemp);
-      
+         
+        
       
         });
     }
     getCountriesData();
     mapData();
+    
   }, [])
 
   //When we change global 
@@ -114,10 +119,12 @@ function App() {
       .then(response => response.json())
       .then(({Countries,Global}) => {
         
-        setCountry(countryCode);
+       
         
         if(countryCode === 'global'){
           setcountryInfo(Global);
+          setmapZoom(2);
+          setMapCenter([34.80746,  -40.4796]);
 
         }else{
           const countryInfoTemp = Countries.filter((country)=>(
@@ -125,8 +132,17 @@ function App() {
            
       ))
      
-        
+        setCountry(countryCode);
         setcountryInfo(countryInfoTemp[0]);
+        console.log(mapInfo);
+        const info = mapInfo.filter((info) =>(
+          info.countryCode === countryCode 
+        ))
+        const {lat,long} = info[0];
+        setmapZoom(4);
+        setMapCenter([lat,long]);
+        
+        
       }
         
         
@@ -210,7 +226,7 @@ function App() {
               
               <Table countries = {tableData}></Table>
               <h3 className = "app__graphTittle">Worldwide new {casesType}</h3>
-  {/*<LineGraph className = "app__graph" casesType={casesType}></LineGraph>*/}
+              <LineGraph className = "app__graph" casesType={casesType}></LineGraph>
           
             </CardContent>
       </Card> 
