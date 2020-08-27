@@ -8,7 +8,7 @@ import Table from './Table';
 import {sortData, prettyPrintStat,prettyPrintStatTotal} from './util';
 import LineGraph from './LineGraph';
 import "leaflet/dist/leaflet.css";
-import { set } from 'numeral';
+
 
 //BEM naming convention
 //"https://disease.sh/v3/covid-19/countries/"
@@ -18,7 +18,7 @@ import { set } from 'numeral';
 // const x = new Date();
 //console.log(x.getDay())
 function App() {
-  
+  const [countryName,setCountryName] = useState("Global")
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("global");
   const [countryInfo, setcountryInfo] = useState({});
@@ -44,7 +44,7 @@ function App() {
       
     })
   }, [])
-
+  
   
   useEffect(() => {
     //USEEFFECT =  Runs a pierce of code
@@ -134,14 +134,17 @@ function App() {
      
         setCountry(countryCode);
         setcountryInfo(countryInfoTemp[0]);
-        console.log(mapInfo);
+        //console.log(mapInfo);
         const info = mapInfo.filter((info) =>(
           info.countryCode === countryCode 
         ))
         const {lat,long} = info[0];
         setmapZoom(4);
         setMapCenter([lat,long]);
-        
+        const countryN =  countries.filter((countryTemp) =>(
+          countryTemp.value === countryCode
+        ))
+       setCountryName(countryN[0].label) 
         
       }
         
@@ -153,9 +156,31 @@ function App() {
 
   
   const changeCountryOnClick = async(country) => {
-    
-  };
-
+    const url = 'https://api.covid19api.com/summary';
+    await fetch(url)
+      .then(response => response.json())
+      .then(({Countries}) => {
+        const countryInfoTemp = Countries.filter((countryTemp)=>(
+          countryTemp.CountryCode === country
+        ))
+        setCountry(country);
+        console.log(country)
+        setcountryInfo(countryInfoTemp[0]);
+        const countryN =  countries.filter((countryTemp) =>(
+          countryTemp.value === country
+        ))
+        const info = mapInfo.filter((info) =>(
+          info.countryCode === country 
+        ))
+        const {lat,long} = info[0];
+        //set color circle other red 
+        //SetZoom(6)
+        setmapZoom(4);
+        setMapCenter([lat,long]);
+        setCountryName(countryN[0].label) 
+  })};
+  
+  
   
   return (
      
@@ -173,7 +198,8 @@ function App() {
               className = "select"
               defaultValue = {{label:"Global",value:"global"}}
               options = {countries}
-              onChange = {onCountryChange} 
+              onChange = {onCountryChange}
+              value = {{label: countryName ,value: country}}
               isSearchable
             />
            
